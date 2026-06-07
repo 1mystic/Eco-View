@@ -6,6 +6,12 @@
 
 ---
 
+### Quick Links
+
+- **Live site:** https://eco-view.vercel.app
+- **Notebook:** https://colab.research.google.com/drive/1LtzpoTVgkB1xNLnnsxH1FAWd4fu2ZmSm?usp=sharing
+
+
 ## Summary
 
 Built EcoView end-to-end: a production-deployed civic tech platform for environmental pollution reporting with AI classification, community verification, NGO campaign coordination, and a role-based admin system :  running at **$0/month** on a fully serverless stack (React/Vercel + Firebase + HuggingFace Spaces). Designed and implemented a dual-mode ML pipeline using **Gemini 3.1 Flash-Lite** as a VLM teacher that classifies both images and plain-text descriptions into structured pollution categories, paired with an ONNX knowledge distillation notebook (ConvNeXt Base → MobileNetV3 Large → INT8, ~6 MB) ready for edge deployment. Engineered the full Firebase architecture :  Firestore schema, security rules, client-side composite-index workarounds, base64 image storage without Firebase Storage :  alongside a FastAPI inference service deployed as a Docker container on HuggingFace with a data flywheel that auto-logs high-confidence outputs as future training data. Shipped a complete design system from scratch (CSS custom properties, reusable component patterns), real-time pollution mapping with biodiversity hotspot overlays and sparklines, and three distinct user roles each with their own dashboard.
