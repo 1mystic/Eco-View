@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TerraPulse — Environmental Intelligence Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============================== NAV ============================== -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__logo" href="#">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <path d="M14 2L4 8v12l10 6 10-6V8L14 2z" fill="#a8cc38" opacity="0.15"/>
+        <path d="M14 2L4 8v12l10 6 10-6V8L14 2z" stroke="#6d8f19" stroke-width="1.5" fill="none"/>
+        <path d="M9 14c0-3 2.5-6 5-6s5 3 5 6-2.5 4-5 6c-2.5-2-5-3-5-6z" fill="#8ab420"/>
+        <path d="M14 10v8M11 13l3-3 3 3" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      TerraPulse
+    </a>
+    <div class="nav__links">
+      <a class="nav__link active" href="#hero">Platform</a>
+      <a class="nav__link" href="#solutions">Solutions</a>
+      <a class="nav__link" href="#features">Features</a>
+      <a class="nav__link" href="#community">Community</a>
+      <a class="nav__link" href="#pricing">Pricing</a>
+    </div>
+    <div class="nav__actions">
+      <a class="btn btn-primary btn-sm" href="#cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================== HERO ============================== -->
+<section class="hero section" id="hero">
+  <div class="container">
+    <div class="hero__grid">
+      <div class="hero__content">
+        <div class="badge badge--green">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" fill="currentColor"/><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2" opacity="0.4"/></svg>
+          Environmental Intelligence
+        </div>
+        <h1 class="display-xl hero__title">Crowdsourced Precision, Built to Protect Our Planet</h1>
+        <p class="body-lg hero__desc">A multimodal ML platform that classifies pollution incidents in real-time using crowdsourced data — empowering communities, NGOs, and governments to act faster.</p>
+        <div class="hero__actions">
+          <a class="btn btn-primary btn-lg" href="#">Experience the Platform</a>
+          <a class="btn btn-secondary btn-lg" href="#">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 6.5l4 2.5-4 2.5V6.5z" fill="currentColor"/></svg>
+            Watch Demo
+          </a>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <!-- Mini dashboard preview -->
+        <div class="dash-topbar">
+          <div class="dash-topbar__tabs">
+            <span class="dash-topbar__tab active">Live Monitor</span>
+            <span class="dash-topbar__tab">Global View</span>
+            <span class="dash-topbar__tab">Energy Grid</span>
+          </div>
+          <span class="dash-topbar__status">SYNCED</span>
+        </div>
+        <div style="padding: 20px;">
+          <div class="dash-map">
+            <div class="dash-map__contour" style="width:300px;height:200px;top:10%;left:5%"></div>
+            <div class="dash-map__contour" style="width:250px;height:180px;top:30%;left:40%"></div>
+            <div class="dash-map__contour" style="width:200px;height:150px;top:50%;left:15%"></div>
+            <div class="dash-map__dot dash-map__dot--stable" style="top:35%;left:25%"></div>
+            <div class="dash-map__dot dash-map__dot--elevated" style="top:22%;left:55%"></div>
+            <div class="dash-map__dot dash-map__dot--moderate" style="top:55%;left:60%"></div>
+            <div class="dash-map__dot dash-map__dot--stable" style="top:65%;left:38%"></div>
+            <div class="dash-map__dot dash-map__dot--elevated" style="top:30%;left:80%"></div>
+            <div class="dash-map__legend">
+              <span class="legend-stable">Stable</span>
+              <span class="legend-moderate">Moderate</span>
+              <span class="legend-elevated">Elevated</span>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;">
+            <div class="dash-metric">
+              <div class="dash-metric__label">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M4 6l4-4 4 4" stroke="#e06070" stroke-width="1.5" stroke-linecap="round"/></svg>
+                AQI INDEX
+              </div>
+              <div class="dash-metric__value">142 <span class="dash-metric__change dash-metric__change--up">↗ +12%</span></div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-metric__label">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 12a4 4 0 100-8 4 4 0 000 8z" stroke="#4da6e0" stroke-width="1.5"/><path d="M8 5v3l2 1" stroke="#4da6e0" stroke-width="1.5" stroke-linecap="round"/></svg>
+                WATER QUALITY
+              </div>
+              <div class="dash-metric__value">89% <span class="dash-metric__change dash-metric__change--down">↘ −3%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TRUST BAR ============================== -->
+<section class="section" style="padding-top:0;padding-bottom:0;">
+  <div class="container">
+    <div class="trust-bar">
+      <div class="trust-item">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3 6h6l-5 4 2 6-6-4-6 4 2-6-5-4h6l3-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="trust-item__text">
+          <h4>Real-time Classification</h4>
+          <p>ML models classify incidents in seconds</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/><circle cx="19" cy="7" r="2" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="17" r="2" stroke="currentColor" stroke-width="1.5"/><circle cx="19" cy="17" r="2" stroke="currentColor" stroke-width="1.5"/><path d="M9.5 10.5L6.5 8.5M14.5 10.5l3-2M9.5 13.5l-3 2M14.5 13.5l3 2" stroke="currentColor" stroke-width="1"/></svg>
+        </div>
+        <div class="trust-item__text">
+          <h4>Community-Powered</h4>
+          <p>Crowdsourced reports from real people</p>
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 15l4-8 4 5 4-3 4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div class="trust-item__text">
+          <h4>ML-Driven Insights</h4>
+          <p>Predictive analytics and trend detection</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== HOW IT WORKS ============================== -->
+<section class="section" id="how">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="badge" style="margin:0 auto;">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M2 8h12M8 2v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Intelligence Pipeline
+      </div>
+      <h2 class="display-lg" style="margin-top:20px;">A New Layer of Environmental Intelligence</h2>
+      <p class="section-subtitle">Each stage works independently and seamlessly together to support your entire monitoring workflow.</p>
+    </div>
+    <div class="pipeline">
+      <div class="pipeline__step animate-in">
+        <div class="pipeline__num">1</div>
+        <div class="icon-circle icon-circle--lg" style="margin:0 auto 16px;">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="1.5"/><path d="M3 12h2M19 12h2M12 3v2M12 19v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4 class="heading-md">Report</h4>
+        <p>Users capture incidents via photo, text, or sensor data from mobile devices.</p>
+      </div>
+      <div class="pipeline__step animate-in">
+        <div class="pipeline__num">2</div>
+        <div class="icon-circle icon-circle--lg" style="margin:0 auto 16px;">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 9h16M9 9v11" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="14" r="2" fill="currentColor" opacity="0.4"/></svg>
+        </div>
+        <h4 class="heading-md">Classify</h4>
+        <p>Multimodal ML models auto-classify pollution type, severity, and source.</p>
+      </div>
+      <div class="pipeline__step animate-in">
+        <div class="pipeline__num">3</div>
+        <div class="icon-circle icon-circle--lg" style="margin:0 auto 16px;">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9z" stroke="currentColor" stroke-width="1.5"/><path d="M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <h4 class="heading-md">Alert</h4>
+        <p>Automated notifications reach NGOs, authorities, and community members.</p>
+      </div>
+      <div class="pipeline__step animate-in">
+        <div class="pipeline__num">4</div>
+        <div class="icon-circle icon-circle--lg" style="margin:0 auto 16px;">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M22 4L12 14.01l-3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h4 class="heading-md">Act</h4>
+        <p>Coordinated response with real-time tracking and compliance reporting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CAPABILITIES ============================== -->
+<section class="section section--alt" id="capabilities">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="badge" style="margin:0 auto;">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+        Intelligence Layers
+      </div>
+      <h2 class="display-lg" style="margin-top:20px;">Platform Capabilities</h2>
+      <p class="section-subtitle">Each AI capability works independently and seamlessly together to support your entire workflow.</p>
+    </div>
+    <div class="capabilities-grid">
+      <div class="card card--featured cap-card animate-in">
+        <div class="icon-circle" style="background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.12);color:var(--green-900);">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 9h16M9 9v11" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="14" r="2" stroke="currentColor" stroke-width="1.2"/></svg>
+        </div>
+        <div class="cap-card__label">FEATURED</div>
+        <h3 class="heading-lg cap-card__title">Multimodal ML Classification</h3>
+        <p class="cap-card__desc">Process images, text reports, audio clips, and IoT sensor data through unified deep learning models. Automatically identifies pollution type — air, water, soil, noise — with confidence scoring and source attribution.</p>
+        <a class="btn btn-sm" style="margin-top:20px;background:rgba(0,0,0,0.1);color:var(--green-900);" href="#">Learn More →</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div class="card cap-card animate-in">
+          <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="cap-card__label">SPEED</div>
+          <h3 class="heading-md cap-card__title">Real-time Processing</h3>
+          <p class="cap-card__desc">Classification results in under 3 seconds. Live dashboards update as reports flow in.</p>
+        </div>
+        <div class="card cap-card animate-in">
+          <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.5"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5"/></svg></div>
+          <div class="cap-card__label">SCALE</div>
+          <h3 class="heading-md cap-card__title">Intelligent Coordination</h3>
+          <p class="cap-card__desc">AI capabilities that sync effortlessly to deliver complete, end-to-end solutions across regions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SOLUTIONS ============================== -->
+<section class="section" id="solutions">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="badge" style="margin:0 auto;">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2" opacity="0.3"/></svg>
+        Workflow Solutions
+      </div>
+      <h2 class="display-lg" style="margin-top:20px;">Designed for Every Stakeholder, Across Every Community</h2>
+    </div>
+    <div class="solutions-content" style="margin-top:48px;">
+      <div class="solutions-visual" id="solVisual">
+        <div style="text-align:center;padding:40px;">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" style="margin:0 auto 16px;">
+            <circle cx="40" cy="40" r="36" fill="#f6f9ec" stroke="#d4e89e" stroke-width="1.5"/>
+            <circle cx="40" cy="40" r="20" fill="#e8f2cc" stroke="#bdd966" stroke-width="1"/>
+            <circle cx="40" cy="40" r="6" fill="#8ab420"/>
+            <path d="M40 10v10M40 60v10M10 40h10M60 40h10" stroke="#bdd966" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <p class="heading-md" id="solVisualTitle">Track & monitor environmental incidents across your region</p>
+          <p class="body-sm" style="margin-top:8px;" id="solVisualDesc">Real-time dashboards tailored for your workflow</p>
+        </div>
+      </div>
+      <div>
+        <div class="solutions-sidebar" id="solTabs">
+          <button class="solutions-sidebar__item active" data-sol="0">
+            <span class="s-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4l2-4z" stroke="currentColor" stroke-width="1.2"/></svg></span>
+            For NGOs
+          </button>
+          <button class="solutions-sidebar__item" data-sol="1">
+            <span class="s-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M2 14c0-3 3-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.2"/></svg></span>
+            For Communities
+          </button>
+          <button class="solutions-sidebar__item" data-sol="2">
+            <span class="s-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="3" y="2" width="10" height="12" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M6 5h4M6 8h4M6 11h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+            For Government
+          </button>
+          <button class="solutions-sidebar__item" data-sol="3">
+            <span class="s-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M8 4v4l3 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+            For Researchers
+          </button>
+        </div>
+        <div id="solFeatures" style="margin-top:28px;">
+          <div class="solutions-features" data-sol-content="0">
+            <div class="solutions-feature"><div class="icon-circle icon-circle--sm"><svg viewBox="0 0 24 24" fill="none"><path d="M9 11l3 3L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div><div class="solutions-feature__text"><h4>Incident Dashboard</h4><p>Monitor and triage pollution reports across your operational areas.</p></div></div>
+            <div class="solutions-feature"><div class="icon-circle icon-circle--sm"><svg viewBox="0 0 24 24" fill="none"><path d="M4 15l4-8 4 5 4-3 4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><div class="solutions-feature__text"><h4>Impact Analytics</h4><p>Generate compliance reports with classification confidence metrics.</p></div></div>
+            <div class="solutions-feature"><div class="icon-circle icon-circle--sm"><svg viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9z" stroke="currentColor" stroke-width="1.5"/></svg></div><div class="solutions-feature__text"><h4>Automated Alerts</h4><p>Get notified instantly when new incidents are reported in your zones.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== BENTO FEATURES ============================== -->
+<section class="section section--alt" id="features">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="badge" style="margin:0 auto;">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/></svg>
+        Product Features
+      </div>
+      <h2 class="display-lg" style="margin-top:20px;">Features Crafted for Intelligence</h2>
+      <p class="section-subtitle">Each feature enhances a different part of your workflow together forming a seamless, powerful environmental intelligence experience.</p>
+    </div>
+    <div class="bento">
+      <!-- Smart Classification -->
+      <div class="bento__card bento__card--wide animate-in">
+        <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h3 class="heading-lg" style="margin-top:16px;">Smart Classification</h3>
+        <p class="body-md">Understands your environmental data across every modality.</p>
+        <div class="bento__card__viz">
+          <div style="display:flex;gap:12px;align-items:flex-end;">
+            <div style="flex:1;text-align:center;">
+              <div style="background:var(--green-200);border-radius:6px;height:60px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#536c14" stroke-width="1.2"/><circle cx="9" cy="9" r="2" fill="#8ab420"/><path d="M3 17l5-5 4 4 3-3 6 6" stroke="#536c14" stroke-width="1.2"/></svg>
+              </div>
+              <span class="body-sm">Image</span>
+            </div>
+            <div style="flex:1;text-align:center;">
+              <div style="background:var(--green-200);border-radius:6px;height:60px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 10h12M4 14h14M4 18h10" stroke="#536c14" stroke-width="1.2" stroke-linecap="round"/></svg>
+              </div>
+              <span class="body-sm">Text</span>
+            </div>
+            <div style="flex:1;text-align:center;">
+              <div style="background:var(--green-200);border-radius:6px;height:60px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 12h2l2-4 3 8 3-6 2 4h4" stroke="#536c14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="body-sm">Sensor</span>
+            </div>
+            <div style="flex:0 0 auto;text-align:center;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="#8ab420" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div style="flex:1.5;text-align:center;">
+              <div style="background:var(--green-400);border-radius:6px;height:60px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;color:var(--green-900);font-weight:600;font-size:13px;">Classification</div>
+              <span class="body-sm">Result</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- High-Fidelity Mapping -->
+      <div class="bento__card animate-in">
+        <h3 class="display-md">High-Fidelity Mapping</h3>
+        <p class="body-md" style="margin-top:8px;">Visualizes incidents geographically in real-time.</p>
+        <div class="bento__card__viz" style="position:relative;min-height:100px;">
+          <div style="position:absolute;width:10px;height:10px;background:var(--green-400);border-radius:50%;top:20%;left:30%;"></div>
+          <div style="position:absolute;width:10px;height:10px;background:#e06070;border-radius:50%;top:50%;left:60%;"></div>
+          <div style="position:absolute;width:10px;height:10px;background:#4da6e0;border-radius:50%;top:70%;left:25%;"></div>
+          <div style="position:absolute;width:10px;height:10px;background:var(--green-400);border-radius:50%;top:35%;left:75%;"></div>
+          <div style="position:absolute;inset:0;border:1px dashed var(--green-200);border-radius:50%;width:80px;height:60px;top:15%;left:15%;"></div>
+          <div style="position:absolute;inset:0;border:1px dashed rgba(224,96,112,0.3);border-radius:50%;width:60px;height:50px;top:40%;left:50%;"></div>
+        </div>
+      </div>
+      <!-- Community Intelligence -->
+      <div class="bento__card animate-in">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+          <span class="badge badge--green" style="font-size:12px;padding:4px 12px;">Report Verified</span>
+          <span class="badge badge--green" style="font-size:12px;padding:4px 12px;">Data Validated</span>
+          <span class="badge" style="font-size:12px;padding:4px 12px;">Source Identified</span>
+          <span class="badge" style="font-size:12px;padding:4px 12px;">Alert Dispatched</span>
+        </div>
+        <h3 class="heading-lg">Community Intelligence</h3>
+        <p class="body-md" style="margin-top:8px;">Crowdsourced validation ensures accurate, trustworthy data at scale.</p>
+      </div>
+      <!-- Automated Alerts -->
+      <div class="bento__card animate-in">
+        <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9z" stroke="currentColor" stroke-width="1.5"/><path d="M13.73 21a2 2 0 01-3.46 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h3 class="heading-lg" style="margin-top:16px;">Automated Alerts</h3>
+        <p class="body-md" style="margin-top:8px;">Threshold-based notifications dispatched to the right teams automatically.</p>
+      </div>
+      <!-- Predictive Analytics - wide -->
+      <div class="bento__card bento__card--wide animate-in">
+        <div style="display:flex;gap:32px;align-items:center;">
+          <div style="flex:1;">
+            <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none"><path d="M4 15l4-8 4 5 4-3 4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/></svg></div>
+            <h3 class="heading-lg" style="margin-top:16px;">Predictive Analytics</h3>
+            <p class="body-md" style="margin-top:8px;">Trend forecasting powered by historical data and ML models. Anticipate incidents before they escalate.</p>
+          </div>
+          <div style="flex:1;">
+            <div class="bento__card__viz" style="margin-top:0;">
+              <svg viewBox="0 0 200 80" class="sparkline" style="height:64px;">
+                <path d="M0 60 Q20 55 40 50 T80 35 T120 25 T160 30 T200 15" stroke="#8ab420" stroke-width="2" fill="none"/>
+                <path d="M120 25 Q140 20 160 22 T200 10" stroke="#8ab420" stroke-width="1.5" stroke-dasharray="4 4" fill="none" opacity="0.5"/>
+                <circle cx="120" cy="25" r="3" fill="#8ab420"/>
+                <text x="125" y="22" font-size="8" fill="#777772" font-family="DM Sans, sans-serif">Forecast</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== DASHBOARD PREVIEW ============================== -->
+<section class="section" id="dashboard">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="badge" style="margin:0 auto;">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M2 6h12" stroke="currentColor" stroke-width="1.2"/></svg>
+        Live Platform
+      </div>
+      <h2 class="display-lg" style="margin-top:20px;">Your Environmental Command Center</h2>
+      <p class="section-subtitle">Monitor, classify, and respond to pollution incidents from a single, unified dashboard.</p>
+    </div>
+    <div class="dash-preview animate-in">
+      <div class="dash-topbar">
+        <div class="dash-topbar__tabs">
+          <span class="dash-topbar__tab active">Live Monitor</span>
+          <span class="dash-topbar__tab">Global View</span>
+          <span class="dash-topbar__tab">Energy Grid</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <span class="dash-topbar__status">SYNCED</span>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M14 9.5a5.5 5.5 0 11-11 0 5.5 5.5 0 0111 0z" stroke="#a0a09a" stroke-width="1.2"/><path d="M15 15l-2.5-2.5" stroke="#a0a09a" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#a0a09a" stroke-width="1.2"/><path d="M9 6v3l2 1.5" stroke="#a0a09a" stroke-width="1.2" stroke-linecap="round"/></svg>
+        </div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-sidebar">
+          <div class="dash-sidebar__logo">
+            <svg width="18" height="18" viewBox="0 0 28 28" fill="none"><path d="M14 2L4 8v12l10 6 10-6V8L14 2z" fill="#a8cc38" opacity="0.2"/><path d="M9 14c0-3 2.5-6 5-6s5 3 5 6-2.5 4-5 6c-2.5-2-5-3-5-6z" fill="#8ab420"/></svg>
+            TerraPulse
+          </div>
+          <div class="dash-sidebar__sub">Climate Intelligence</div>
+          <div class="dash-nav-item active">
+            <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Pulse
+          </div>
+          <div class="dash-nav-item"><svg viewBox="0 0 16 16" fill="none"><path d="M8 2v4l3 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/></svg> Heat Zones</div>
+          <div class="dash-nav-item"><svg viewBox="0 0 16 16" fill="none"><path d="M4 12c0-4 4-8 4-8s4 4 4 8a4 4 0 01-8 0z" stroke="currentColor" stroke-width="1.2"/></svg> Water Systems</div>
+          <div class="dash-nav-item"><svg viewBox="0 0 16 16" fill="none"><path d="M3 13l3-5 3 3 4-7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Energy Grid</div>
+          <div class="dash-nav-item"><svg viewBox="0 0 16 16" fill="none"><path d="M4 8h8M4 5h8M4 11h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Atmosphere</div>
+          <div class="dash-nav-item"><svg viewBox="0 0 16 16" fill="none"><path d="M2 12l4-4 3 3 5-5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Forecasting</div>
+          <div class="dash-nav-item" style="margin-top:auto;"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M8 2v2M8 12v2M2 8h2M12 8h2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Settings</div>
+        </div>
+        <div class="dash-main">
+          <div class="dash-main__title">Live Climate Terrain</div>
+          <div class="dash-main__sub">Real-time environmental monitoring across 4 active zones</div>
+          <div class="dash-map">
+            <div class="dash-map__contour" style="width:45%;height:55%;top:5%;left:5%"></div>
+            <div class="dash-map__contour" style="width:40%;height:45%;top:25%;left:35%"></div>
+            <div class="dash-map__contour" style="width:35%;height:40%;top:45%;left:10%"></div>
+            <div class="dash-map__dot dash-map__dot--stable" style="top:35%;left:22%"></div>
+            <div class="dash-map__dot dash-map__dot--elevated" style="top:20%;left:48%"></div>
+            <div class="dash-map__dot dash-map__dot--moderate" style="top:55%;left:58%"></div>
+            <div class="dash-map__dot dash-map__dot--stable" style="top:48%;left:35%"></div>
+            <div class="dash-map__dot dash-map__dot--elevated" style="top:28%;left:78%"></div>
+            <div class="dash-map__dot dash-map__dot--moderate" style="top:65%;left:42%"></div>
+            <div class="dash-map__legend">
+              <span class="legend-stable">Stable</span>
+              <span class="legend-moderate">Moderate</span>
+              <span class="legend-elevated">Elevated</span>
+            </div>
+          </div>
+          <div class="dash-metrics">
+            <div class="dash-metric">
+              <div class="dash-metric__label">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M4 6l4-4 4 4" stroke="#e06070" stroke-width="1.5" stroke-linecap="round"/></svg>
+                HEAT DENSITY
+              </div>
+              <div class="dash-metric__value">38.2°C <span class="dash-metric__change dash-metric__change--up">↗ +12%</span></div>
+              <div class="dash-metric__spark">
+                <svg viewBox="0 0 120 32" class="sparkline" style="height:28px;"><path d="M0 24 Q15 22 30 20 T60 18 T90 22 T120 16" stroke="#e06070" stroke-width="1.5" fill="none"/></svg>
+              </div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-metric__label">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 12c0-4 4-8 4-8s4 4 4 8a4 4 0 01-8 0z" stroke="#4da6e0" stroke-width="1.3"/></svg>
+                WATER RESERVE
+              </div>
+              <div class="dash-metric__value">89% <span class="dash-metric__change dash-metric__change--down">↘ −3%</span></div>
+              <div class="dash-metric__spark">
+                <svg viewBox="0 0 120 32" class="sparkline" style="height:28px;"><path d="M0 16 Q15 14 30 15 T60 12 T90 10 T120 8" stroke="#4da6e0" stroke-width="1.5" fill="none"/></svg>
+              </div>
+            </div>
+            <div class="dash-metric">
+              <div class="dash-metric__label">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M4 8h8M4 5h8M4 11h8" stroke="#8ab420" stroke-width="1.3" stroke-linecap="round"/></svg>
+                AIR QUALITY
+              </div>
+              <div class="dash-metric__value">Good <span class="dash-metric__change dash-metric__change--down" style="color:var(--green-600);">↘ −8%</span></div>
+              <div class="dash-metric__spark">
+                <svg viewBox="0 0 120 32" class="sparkline" style="height:28px;"><path d="M0 20 Q15 18 30 16 T60 14 T90 12 T120 10" stroke="#8ab420" stroke-width="1.5" fill="none"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== DATA SOURCES ============================== -->
+<section class="section section--alt" id="data">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="badge" style="margin:0 auto;">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M2 4l6-2 6 2v8l-6 2-6-2V4z" stroke="currentColor" stroke-width="1.2"/><path d="M2 4l6 2 6-2M8 6v8" stroke="currentColor" stroke-width="1.2"/></svg>
+        Data Integrations
+      </div>
+      <h2 class="display-lg" style="margin-top:20px;">Multimodal Data, Unified Intelligence</h2>
+      <p class="section-subtitle">Connect every environmental data source into a single classification engine.</p>
+    </div>
+    <div class="data-grid">
+      <div class="data-card animate-in">
+        <div class="icon-circle" style="margin:0 auto 14px;"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 3c-3 4-3 8 0 12s3 8 0 12" stroke="currentColor" stroke-width="1" opacity="0.3"/><path d="M3 12h18" stroke="currentColor" stroke-width="1" opacity="0.3"/></svg></div>
+        <h4>Satellite Imagery</h4>
+        <p>Optical and radar data for land-use monitoring</p>
+      </div>
+      <div class="data-card animate-in">
+        <div class="icon-circle" style="margin:0 auto 14px;"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12h2l2-4 3 8 3-6 2 4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>IoT Sensors</h4>
+        <p>Air, water, soil, and noise quality readings</p>
+      </div>
+      <div class="data-card animate-in">
+        <div class="icon-circle" style="margin:0 auto 14px;"><svg viewBox="0 0 24 24" fill="none"><rect x="7" y="3" width="10" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="17" r="1" fill="currentColor"/></svg></div>
+        <h4>Mobile Reports</h4>
+        <p>Crowdsourced text, photo, and audio data</p>
+      </div>
+      <div class="data-card animate-in">
+        <div class="icon-circle" style="margin:0 auto 14px;"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v4M6.34 6.34l2.83 2.83M2 12h4M6.34 17.66l2.83-2.83M12 18v4M17.66 17.66l-2.83-2.83M18 12h4M17.66 6.34l-2.83 2.83" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h4>Weather APIs</h4>
+        <p>Meteorological context for incident correlation</p>
+      </div>
+      <div class="data-card animate-in">
+        <div class="icon-circle" style="margin:0 auto 14px;"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 10h12M4 14h14M4 18h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h4>Government Feeds</h4>
+        <p>Official pollution data and regulatory thresholds</p>
+      </div>
+      <div class="data-card animate-in">
+        <div class="icon-circle" style="margin:0 auto 14px;"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Compliance DBs</h4>
+        <p>Environmental standards and violation histories</p>
+      </div>
+      <div class="data-card animate-in">
+        <div class="icon-circle" style="margin:0 auto 14px;"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.5"/><path d="M2 17l10 5 10-5" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <h4>GIS Layers</h4>
+        <p>Topographic and infrastructure mapping data</p>
+      </div>
+      <div class="data-card animate-in">
+        <div class="icon-circle" style="margin:0 auto 14px;"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="7" r="2" stroke="currentColor" stroke-width="1.2"/><circle cx="19" cy="17" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M9.5 10.5L6.5 8.5M14.5 13.5l3 2" stroke="currentColor" stroke-width="1"/></svg></div>
+        <h4>Social Media</h4>
+        <p>Crowd signals from platforms and local forums</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== IMPACT STATS ============================== -->
+<section class="section" id="impact">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <div class="badge" style="margin:0 auto;">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Impact at Scale
+      </div>
+      <h2 class="display-lg" style="margin-top:20px;">Measurable Environmental Impact</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="animate-in">
+        <div class="stat__value">2.4<span>M</span></div>
+        <div class="stat__label">Incidents classified</div>
+      </div>
+      <div class="animate-in">
+        <div class="stat__value">140<span>K</span></div>
+        <div class="stat__label">Community reporters</div>
+      </div>
+      <div class="animate-in">
+        <div class="stat__value">98<span>%</span></div>
+        <div class="stat__label">Classification accuracy</div>
+      </div>
+      <div class="animate-in">
+        <div class="stat__value">12<span>s</span></div>
+        <div class="stat__label">Average response time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PRICING ============================== -->
+<section class="section section--alt" id="pricing">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="badge" style="margin:0 auto;">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M2 7h12" stroke="currentColor" stroke-width="1.2"/></svg>
+        Pricing Plans
+      </div>
+      <h2 class="display-lg" style="margin-top:20px;">Simple, Transparent Pricing</h2>
+      <p class="section-subtitle">Start free. Scale as your monitoring needs grow.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="card pricing-card animate-in">
+        <div class="pricing-card__label">Community</div>
+        <div class="pricing-card__price">Free</div>
+        <p class="pricing-card__desc">For individual reporters and small community groups.</p>
+        <div class="pricing-card__features">
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Up to 50 reports/month</div>
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Basic classification</div>
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Community map access</div>
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Mobile app</div>
+        </div>
+        <a class="btn btn-outline" href="#">Get Started</a>
+      </div>
+      <div class="card pricing-card animate-in" style="border-color:var(--green-400);">
+        <span class="pricing-popular">Most Popular</span>
+        <div class="pricing-card__label">Organization</div>
+        <div class="pricing-card__price">$49<span>/month</span></div>
+        <p class="pricing-card__desc">For NGOs and mid-size organizations with active monitoring.</p>
+        <div class="pricing-card__features">
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Unlimited reports</div>
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Multimodal ML classification</div>
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Custom alert rules</div>
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Analytics dashboard</div>
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> API access</div>
+        </div>
+        <a class="btn btn-primary" href="#">Get Started</a>
+      </div>
+      <div class="card pricing-card animate-in">
+        <div class="pricing-card__label">Enterprise</div>
+        <div class="pricing-card__price">Custom</div>
+        <p class="pricing-card__desc">For government agencies and large-scale deployments.</p>
+        <div class="pricing-card__features">
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Everything in Organization</div>
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> On-premise deployment</div>
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Custom ML models</div>
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Dedicated support</div>
+          <div class="pricing-card__feature"><svg viewBox="0 0 18 18" fill="none"><path d="M4 9l4 4 6-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> SLA guarantee</div>
+        </div>
+        <a class="btn btn-outline" href="#">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== CTA ============================== -->
+<section class="section" id="cta">
+  <div class="container">
+    <div class="cta-section animate-in">
+      <div class="badge badge--green" style="margin:0 auto;">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Intelligent Work Starts Here
+      </div>
+      <h2 class="display-lg">Unlock a Smarter Way to Protect Our Planet</h2>
+      <p class="body-lg">Experience a platform built for clarity, intelligence, and meaningful environmental impact.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary btn-lg" href="#">Get Started</a>
+        <a class="btn btn-secondary btn-lg" href="#">Book a Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== TESTIMONIALS ============================== -->
+<section class="section section--alt" id="community">
+  <div class="container">
+    <div class="testimonials-grid">
+      <div>
+        <div class="badge badge--green">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 5h4v4H3zM9 5h4v4H9z" stroke="currentColor" stroke-width="1.2"/></svg>
+          Community Stories
+        </div>
+        <h2 class="display-lg" style="margin-top:16px;">What Teams Are Saying</h2>
+        <div class="testimonials-nav">
+          <button aria-label="Previous">
+            <svg viewBox="0 0 18 18" fill="none"><path d="M11 4l-5 5 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button aria-label="Next">
+            <svg viewBox="0 0 18 18" fill="none"><path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-card__quote">"</div>
+        <p class="testimonial-card__text">As an environmental analyst, I process pollution data every day and interpreting it used to consume most of my time. Now, the platform classifies incidents, maps patterns, and surfaces anomalies automatically.</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar">DR</div>
+          <div>
+            <div class="testimonial-card__name">Daniel Rhicard</div>
+            <div class="testimonial-card__role">Senior Environmental Analyst</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-card__quote">"</div>
+        <p class="testimonial-card__text">Managing pollution monitoring across different regions used to feel chaotic — data scattered everywhere, responses delayed, and incidents constantly missed. The entire flow of detection and action has transformed.</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar">SL</div>
+          <div>
+            <div class="testimonial-card__name">Sofia Lorenza</div>
+            <div class="testimonial-card__role">NGO Program Director</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FAQ ============================== -->
+<section class="section" id="faq">
+  <div class="container">
+    <div style="text-align:center;">
+      <div class="badge" style="margin:0 auto;">
+        <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M6 6.5a2 2 0 013.5 1.5c0 1-1.5 1.5-1.5 1.5M8 11.5v.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Common Questions
+      </div>
+      <h2 class="display-lg" style="margin-top:20px;">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-item__q">
+          How does the ML classification work?
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-item__a"><p>Our multimodal models process images, text, audio, and sensor data simultaneously. Each report is analyzed through specialized neural networks that identify pollution type, estimate severity, and attribute likely sources — all within seconds of submission.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__q">
+          What types of pollution can it detect?
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-item__a"><p>TerraPulse classifies air pollution, water contamination, soil degradation, noise pollution, light pollution, and illegal dumping. The system continuously learns from new reports to improve detection of emerging pollution patterns.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__q">
+          How accurate is the crowdsourced data?
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-item__a"><p>Reports go through multi-layer validation: ML-based anomaly detection, cross-referencing with IoT sensors and satellite data, and community consensus scoring. Our validated accuracy rate consistently exceeds 98% across all pollution categories.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__q">
+          Can we integrate with existing monitoring systems?
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-item__a"><p>Yes. TerraPulse offers REST APIs, webhook integrations, and pre-built connectors for popular environmental monitoring platforms, GIS tools, government reporting systems, and IoT sensor networks.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__q">
+          Is there a free tier for community groups?
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="faq-item__a"><p>Absolutely. Our Community tier is free forever and includes up to 50 reports per month, basic classification, map access, and full mobile app functionality. Most community groups find this sufficient for local monitoring efforts.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none"><path d="M14 2L4 8v12l10 6 10-6V8L14 2z" fill="#a8cc38" opacity="0.15"/><path d="M14 2L4 8v12l10 6 10-6V8L14 2z" stroke="#6d8f19" stroke-width="1.5" fill="none"/><path d="M9 14c0-3 2.5-6 5-6s5 3 5 6-2.5 4-5 6c-2.5-2-5-3-5-6z" fill="#8ab420"/></svg>
+          TerraPulse
+        </div>
+        <p class="footer__desc">Real-time environmental intelligence powered by community data and multimodal ML.</p>
+        <div class="footer__newsletter">
+          <input class="footer__input" type="email" placeholder="Enter your email">
+          <a class="btn btn-primary btn-sm" href="#">Subscribe</a>
+        </div>
+        <div class="footer__social">
+          <a href="#" aria-label="Twitter"><svg viewBox="0 0 16 16" fill="none"><path d="M14 4.5c-.5.2-1 .4-1.6.5.6-.3 1-.9 1.2-1.5-.5.3-1.1.5-1.7.7a2.8 2.8 0 00-4.8 2.5A8 8 0 012.5 3.5a2.8 2.8 0 00.9 3.7c-.5 0-.9-.1-1.3-.4v.1a2.8 2.8 0 002.2 2.7c-.4.1-.8.1-1.2 0a2.8 2.8 0 002.6 1.9A5.6 5.6 0 012 13a8 8 0 004.3 1.3A7.9 7.9 0 0014.3 6v-.4c.5-.4 1-.8 1.3-1.3-.5.2-1 .3-1.6.4z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5.5 7v3.5M5.5 5v.5M8 10.5V8a1.5 1.5 0 013 0v2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></a>
+          <a href="#" aria-label="GitHub"><svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5a6.5 6.5 0 00-2.05 12.66c.33.06.45-.14.45-.31v-1.1c-1.82.4-2.21-.87-2.21-.87-.3-.76-.73-1-.73-1-.6-.4.04-.4.04-.4.66.05 1 .68 1 .68.58 1 1.53.71 1.9.54.06-.42.23-.71.42-.87-1.46-.17-3-.73-3-3.25 0-.72.26-1.3.68-1.76-.07-.17-.3-.83.06-1.73 0 0 .55-.18 1.82.67a6.3 6.3 0 013.32 0c1.27-.85 1.82-.67 1.82-.67.37.9.13 1.56.07 1.73.42.46.67 1.04.67 1.76 0 2.53-1.54 3.08-3 3.25.24.2.45.6.45 1.21v1.8c0 .17.12.37.45.31A6.5 6.5 0 008 1.5z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.2"/><circle cx="11.5" cy="4.5" r="0.8" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+      <div class="footer__column">
+        <h4>Platform</h4>
+        <a href="#">Overview</a>
+        <a href="#">How It Works</a>
+        <a href="#">Classification Engine</a>
+        <a href="#">Live Dashboard</a>
+        <a href="#">API Docs</a>
+      </div>
+      <div class="footer__column">
+        <h4>Solutions</h4>
+        <a href="#">For NGOs</a>
+        <a href="#">For Communities</a>
+        <a href="#">For Government</a>
+        <a href="#">For Researchers</a>
+      </div>
+      <div class="footer__column">
+        <h4>Resources</h4>
+        <a href="#">Documentation</a>
+        <a href="#">Blog</a>
+        <a href="#">Case Studies</a>
+        <a href="#">Open Data</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+      <span>© 2025 TerraPulse. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================== JS ============================== -->
+<script>
+// Sticky nav
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// FAQ accordion
+document.querySelectorAll('.faq-item__q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+// Solutions tabs
+const solData = [
+  { title: 'Track & monitor environmental incidents across your region', desc: 'Real-time dashboards tailored for NGO workflows' },
+  { title: 'Report pollution directly from your neighborhood', desc: 'Mobile-first reporting designed for community members' },
+  { title: 'Enforce compliance with automated violation detection', desc: 'Government-grade analytics and regulatory reporting' },
+  { title: 'Access open datasets for environmental research', desc: 'Publish-ready data exports and historical trend analysis' },
+];
+document.querySelectorAll('.solutions-sidebar__item').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const idx = +tab.dataset.sol;
+    document.querySelectorAll('.solutions-sidebar__item').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('solVisualTitle').textContent = solData[idx].title;
+    document.getElementById('solVisualDesc').textContent = solData[idx].desc;
+  });
+});
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+// Nav active link on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav__link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

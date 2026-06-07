@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+.env
+*.env
+
+# ML artifacts
+*.pt
+*.onnx
+*.pkl
+*.h5
+*.bin
+ml/datasets/raw/
+ml/datasets/processed/
+data/raw/
+experiments/runs/
+
+# Notebook outputs — block large/intermediate model files
+notebooks/OUTPUT/teacher_best.pth
+notebooks/OUTPUT/student_model_raw.onnx
+notebooks/OUTPUT/student_model_raw.onnx.data
+notebooks/OUTPUT/student.onnx
+notebooks/OUTPUT/student_simplified.onnx
+
+# Track final quantized model (deploy artifact, ~4 MB)
+!notebooks/OUTPUT/student_model_quantized.onnx
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# Backend
+backend/__pycache__/
+backend/.venv/
+backend/.env
+
+# DVC
+.dvc/cache/
+.dvc/tmp/
+
+# Misc
+.DS_Store
+*.log
+*.swp
+.idea/
+.vscode/settings.json
+
+# Claude Code local config
+.claude/
+
+# HuggingFace Space clone (separate git repo — managed independently)
+ecoview-ml/
+
+# EcoView ML Backend Microservice
+ecoview-ml-backend/.venv/
+ecoview-ml-backend/__pycache__/
+ecoview-ml-backend/*.onnx
+ecoview-ml-backend/data/
+ecoview-ml-backend/*.log
+ecoview-ml-backend/.env
+# Track deployed ONNX model in backend
+!ecoview-ml-backend/student_model_quantized.onnx

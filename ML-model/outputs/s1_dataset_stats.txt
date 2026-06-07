@@ -1,0 +1,15 @@
+# Session 01 Output — fill this after running kaggle_s01_data_assembly.ipynb
+
+Total images:
+Train images:
+Val images:
+Corrupted/removed:
+Duplicates removed:
+
+Air_Pollution count:
+Land_Pollution count:
+Water_Pollution count:
+Clean count:
+Multi-label (2+ labels) count:
+
+Notes / dataset slug substitutions:

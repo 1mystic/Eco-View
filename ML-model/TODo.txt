@@ -1,0 +1,24 @@
+What Was Created
+
+ML-model/
+├── MASTER_PLAN.md              ← orchestration hub, session map, key decisions
+├── context/
+│   └── decisions.md            ← running log — fill as you go
+├── sessions/
+│   ├── session_01_data.md      ← build_dataset.py brief
+│   ├── session_02_eda.md       ← eda_validation.ipynb brief
+│   ├── session_03_model.md     ← model.py + train.py with full specs
+│   ├── session_04_training.md  ← GPU notebook assembly + stop conditions
+│   ├── session_05_diagnostics.md ← Grad-CAM + diagnostic decision tree
+│   └── session_06_deploy.md    ← quantization + Gradio + HF Space
+└── outputs/                    ← paste logs here between sessions
+How to Use Each Session Window
+Open a fresh Claude Code window (or /clear)
+Add exactly 2 files as context: MASTER_PLAN.md + the current session file (e.g., session_01_data.md)
+Say: "Execute this session. Write the code."
+When done, fill in the corresponding outputs/sN_*.txt file
+Move to the next session
+One Decision I Made For You
+Tabular metadata = 4 seasons + 5 AQI bins (9 features, fully synthetic). This requires zero external APIs — the vector is generated from the image labels using simple probability rules (Air_Pollution images → higher AQI bins, Clean images → lower). This is documented in session_01_data.md.
+
+Start with Session 01 whenever you're ready.

@@ -1,0 +1,628 @@
+
+# RUN 
+
+Step 1 — Run the Kaggle Notebook (≈ 1 hour, free T4 GPU)
+Go to kaggle.com/code → New Notebook → File → Import Notebook → upload notebooks/EcoView_KD_Notebook.ipynb
+In the right panel → Data → Add Data → search trashnet → add TrashNet by garythung (2,527 images, 6 classes)
+Settings → Accelerator: GPU T4 × 2
+Run All — takes ~45–60 min. Saves 7 artifacts to /kaggle/working/
+Key artifacts you need at the end:
+
+
+student_model_quantized.onnx   ← the model (~6 MB)
+class_mapping.json             ← {0: "cardboard", 1: "glass", ...}
+Download both from the Kaggle output panel.
+
+Step 2 — Update the Label Map
+Open class_mapping.json. It will look like:
+
+
+{"0": "cardboard", "1": "glass", "2": "metal", "3": "paper", "4": "plastic", "5": "trash"}
+Edit ecoview-ml-backend/core/inference.py — update LABELS and SEVERITY_MAP to match exactly:
+
+
+LABELS = ["cardboard", "glass", "metal", "paper", "plastic", "trash"]
+
+SEVERITY_MAP = {
+    "cardboard": "low",
+    "glass":     "medium",
+    "metal":     "medium",
+    "paper":     "low",
+    "plastic":   "high",
+    "trash":     "high",
+}
+Step 3 — Add numpy + onnxruntime Back to Requirements
+Edit ecoview-ml-backend/requirements.txt:
+
+
+fastapi>=0.115
+uvicorn[standard]>=0.30
+httpx>=0.27.0
+pillow>=10.3.0
+python-dotenv>=1.0.0
+numpy>=1.26.0
+onnxruntime>=1.18.0
+Step 4 — Push Model + Code to HF Space
+
+# Copy updated files to HF Space repo
+Copy-Item "ecoview-ml-backend\core\inference.py" "ecoview-ml\core\inference.py" -Force
+Copy-Item "ecoview-ml-backend\requirements.txt"  "ecoview-ml\requirements.txt"  -Force
+
+# Copy the model file (downloaded from Kaggle)
+Copy-Item "path\to\student_model_quantized.onnx" "ecoview-ml\student_model_quantized.onnx"
+
+cd ecoview-ml
+git add core/inference.py requirements.txt student_model_quantized.onnx
+git commit -m "feat: add ONNX student model + updated labels for TrashNet classes"
+git push
+HF Space rebuilds automatically (~2–3 min with numpy+onnxruntime install).
+
+Step 5 — Verify ONNX Mode Is Live
+Hit the health endpoint:
+
+
+https://mozoj4-ecoview-ml.hf.space/health
+You should see "mode": "onnx" instead of "mode": "simulator":
+
+
+{
+  "components": {
+    "student_classifier": {
+      "mode": "onnx",
+      "model_path": "/app/student_model_quantized.onnx"
+    }
+  }
+}
+What Changes After This
+Before (now)	After Step 5
+Every report → Gemini API call	Reports ≥85% confident → ONNX only (~50ms)
+1,500 Gemini calls/day limit	~85% of calls handled locally, Gemini only for edge cases
+Labels: garbage_dump, plastic_waste…	Labels: cardboard, glass, plastic, trash…
+Cold start risk if Gemini rate-limited	Resilient — ONNX runs with no API key
+The only catch: TrashNet classes (cardboard, glass, plastic…) don't align with EcoView's display labels. Once you have real data, re-run the notebook with your own labelled pollution photos (from the flywheel at data/flywheel/) to train a domain-specific model with the original EcoView categories. That's v2 → v2.1.
+
+## Recommended Project
+
+### EcoView: Environmental Waste Classification for Edge Deployment
+
+Goal:
+
+```text
+Train high-accuracy teacher
+      ↓
+Distill into MobileNetV3
+      ↓
+Export to ONNX
+      ↓
+INT8 Quantization
+      ↓
+Deployable on mobile / edge
+```
+
+This is realistic, reproducible, and achievable on Kaggle GPUs.
+
+---
+
+# Dataset Choice (Use Exactly This)
+
+## Primary Dataset
+
+### TrashNet
+
+Dataset:
+
+```text
+https://www.kaggle.com/datasets/feyzazkefe/trashnet
+```
+
+Classes:
+
+```text
+cardboard
+glass
+metal
+paper
+plastic
+trash
+```
+
+Advantages:
+
+* Clean labels
+* Widely used in research
+* Small enough for Kaggle
+* Large enough for distillation demonstration
+* Works perfectly with ImageFolder
+
+Expected structure:
+
+```text
+TrashNet/
+
+cardboard/
+glass/
+metal/
+paper/
+plastic/
+trash/
+```
+
+---
+
+## Secondary Dataset (Optional Enhancement)
+
+### TACO Dataset
+
+Dataset:
+
+```text
+https://www.kaggle.com/datasets/yassinehamdaoui/taco-dataset-object-detection
+```
+
+or official:
+
+```text
+https://tacodataset.org
+```
+
+Use only if you want:
+
+```text
+Phase 2
+Object Detection
+YOLO
+Waste Localization
+```
+
+Do NOT use for this notebook.
+
+---
+
+# Final Dataset Layout
+
+Create:
+
+```text
+dataset/
+
+train/
+    cardboard/
+    glass/
+    metal/
+    paper/
+    plastic/
+    trash/
+
+valid/
+    cardboard/
+    glass/
+    metal/
+    paper/
+    plastic/
+    trash/
+
+test/
+    cardboard/
+    glass/
+    metal/
+    paper/
+    plastic/
+    trash/
+```
+
+Split:
+
+```text
+70% train
+15% validation
+15% test
+```
+
+Use stratified split.
+
+---
+
+# Teacher Model
+
+Use:
+
+```python
+convnext_base.fb_in22k_ft_in1k
+```
+
+from timm.
+
+Reason:
+
+```text
+Excellent accuracy
+Stable training
+Good teacher
+Available on Kaggle
+```
+
+Implementation:
+
+```python
+teacher = timm.create_model(
+    "convnext_base.fb_in22k_ft_in1k",
+    pretrained=True,
+    num_classes=6
+)
+```
+
+---
+
+# Student Model
+
+Use:
+
+```python
+mobilenetv3_large_100
+```
+
+Reason:
+
+```text
+Mobile-friendly
+ONNX-friendly
+Quantization-friendly
+Widely deployed
+```
+
+Implementation:
+
+```python
+student = timm.create_model(
+    "mobilenetv3_large_100",
+    pretrained=True,
+    num_classes=6
+)
+```
+
+---
+
+# Distillation Strategy
+
+Use:
+
+```text
+CrossEntropy
++
+KL Divergence
+```
+
+Parameters:
+
+```python
+temperature = 4.0
+alpha = 0.7
+```
+
+Loss:
+
+```python
+loss =
+0.7 * hard_loss +
+0.3 * soft_loss * T²
+```
+
+---
+
+# Augmentations
+
+Use Albumentations.
+
+Training:
+
+```python
+A.Compose([
+    A.RandomResizedCrop((224,224)),
+    A.HorizontalFlip(p=0.5),
+    A.ShiftScaleRotate(
+        shift_limit=0.1,
+        scale_limit=0.1,
+        rotate_limit=15,
+        p=0.5
+    ),
+    A.ColorJitter(
+        brightness=0.2,
+        contrast=0.2,
+        saturation=0.2,
+        hue=0.1,
+        p=0.5
+    ),
+    A.Normalize()
+])
+```
+
+Validation:
+
+```python
+A.Compose([
+    A.Resize(224,224),
+    A.Normalize()
+])
+```
+
+---
+
+# Training Configuration
+
+Teacher:
+
+```python
+epochs = 15
+
+optimizer = AdamW(
+    lr=3e-4,
+    weight_decay=1e-4
+)
+
+batch_size = 64
+```
+
+Student:
+
+```python
+epochs = 10
+
+optimizer = AdamW(
+    lr=1e-3,
+    weight_decay=1e-4
+)
+```
+
+Scheduler:
+
+```python
+CosineAnnealingLR
+```
+
+Loss:
+
+```python
+CrossEntropyLoss(
+    label_smoothing=0.1
+)
+```
+
+---
+
+# Evaluation
+
+Must report:
+
+```text
+Accuracy
+Precision
+Recall
+F1
+Confusion Matrix
+Per-Class Accuracy
+```
+
+Libraries:
+
+```python
+torchmetrics
+sklearn.metrics
+```
+
+---
+
+# ONNX Export
+
+Use:
+
+```python
+opset_version=17
+```
+
+Export:
+
+```python
+torch.onnx.export(
+    ...
+    dynamic_axes={
+        "input": {0:"batch"},
+        "output": {0:"batch"}
+    }
+)
+```
+
+---
+
+# ONNX Simplification
+
+Use:
+
+```python
+onnxsim
+```
+
+Pipeline:
+
+```python
+student.onnx
+      ↓
+student_simplified.onnx
+```
+
+---
+
+# Quantization
+
+Use:
+
+```python
+from onnxruntime.quantization import (
+    quantize_dynamic,
+    QuantType
+)
+```
+
+Settings:
+
+```python
+QuantType.QInt8
+```
+
+Output:
+
+```text
+student_int8.onnx
+```
+
+---
+
+# Benchmarking
+
+Measure:
+
+### PyTorch
+
+```text
+Size
+Latency
+Accuracy
+```
+
+### ONNX FP32
+
+```text
+Size
+Latency
+Accuracy
+```
+
+### ONNX INT8
+
+```text
+Size
+Latency
+Accuracy
+```
+
+Benchmark on:
+
+```python
+100 inference runs
+```
+
+after:
+
+```python
+20 warmup runs
+```
+
+---
+
+# Deliverables
+
+Notebook must produce:
+
+```text
+teacher_best.pth
+
+student_best.pth
+
+student.onnx
+
+student_simplified.onnx
+
+student_int8.onnx
+
+class_mapping.json
+
+metrics.json
+```
+
+---
+
+# Prompt for Coding Agent
+
+Give this specification to the coding agent:
+
+Build a production-grade Kaggle notebook named EcoView.
+
+Dataset:
+
+* Use TrashNet Kaggle dataset.
+* Perform stratified train/validation/test split (70/15/15).
+* Use ImageFolder only.
+* No synthetic data.
+* No dummy labels.
+* No JSON annotations.
+
+Teacher:
+
+* ConvNeXt Base from timm.
+* Pretrained ImageNet weights.
+* AdamW optimizer.
+* CosineAnnealingLR scheduler.
+* Label smoothing 0.1.
+* Early stopping with patience 3.
+
+Student:
+
+* MobileNetV3 Large.
+* Knowledge distillation from teacher.
+* Distillation loss = CrossEntropy + KL Divergence.
+* Temperature=4.0.
+* Alpha=0.7.
+
+Metrics:
+
+* Accuracy.
+* Precision.
+* Recall.
+* F1 Score.
+* Confusion Matrix.
+* Per-class metrics.
+
+Export:
+
+* Export student to ONNX opset 17.
+* Validate ONNX using onnx.checker.
+* Simplify using onnxsim.
+
+Quantization:
+
+* Dynamic INT8 quantization using onnxruntime.
+* QuantType.QInt8.
+
+Benchmark:
+
+* Compare Teacher, Student, ONNX FP32, ONNX INT8.
+* Report model size, latency, throughput, accuracy.
+
+Artifacts:
+
+* Save teacher_best.pth.
+* Save student_best.pth.
+* Save student.onnx.
+* Save student_simplified.onnx.
+* Save student_int8.onnx.
+* Save metrics.json.
+* Save class_mapping.json.
+
+Notebook sections:
+
+1. Setup
+2. Dataset Validation
+3. EDA
+4. Teacher Training
+5. Teacher Evaluation
+6. Distillation
+7. Student Evaluation
+8. ONNX Export
+9. ONNX Validation
+10. Quantization
+11. Benchmarking
+12. Deployment Artifacts
+13. Conclusions
+
+The notebook must run without modification on Kaggle GPU T4.
+
+One additional recommendation:add **MLflow experiment tracking**, **Weights & Biases logging**, and a **Gradio inference demo** exported as a separate deployment notebook. Those three additions significantly increase its credibility for ML engineering roles.
