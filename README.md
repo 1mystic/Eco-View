@@ -9,8 +9,7 @@
 ### Quick Links
 
 - **Live site:** https://eco-view.vercel.app
-- **Notebook:** https://colab.research.google.com/drive/1LtzpoTVgkB1xNLnnsxH1FAWd4fu2ZmSm?usp=sharing
-
+- **Kaggle Notebook:** https://www.kaggle.com/code/atharvkhare/ecoview
 
 ## Summary
 
@@ -76,14 +75,14 @@ Behind the scenes, when a photo is submitted:
              │ Firebase JS SDK (direct)           │ fetch() ML calls
              ▼                                   ▼
 ┌────────────────────────────┐      ┌────────────────────────────────────┐
-│   Firebase (Google Cloud)  │      │  HuggingFace Space: mozoj4/ecoview-ml│
+│   Firebase (Google Cloud)  │      │HuggingFace Space: mozoj4/ecoview-ml│
 │                            │      │                                    │
 │  ┌─────────────────────┐   │      │  FastAPI (Python 3.12)             │
 │  │  Firebase Auth      │   │      │  ├── POST /inference/classify      │
 │  │  Email/Password     │   │      │  │    └── Gemini 3.1 Flash-Lite    │
 │  └─────────────────────┘   │      │  │         (VLM structured output) │
 │                            │      │  ├── GET  /health                  │
-│  ┌─────────────────────┐   │      │  └── POST /spatial/* (503 in v1)  │
+│  ┌─────────────────────┐   │      │  └── POST /spatial/* (503 in v1)   │
 │  │  Firestore          │   │      │                                    │
 │  │  /incidents         │   │      │  Deps: fastapi · uvicorn · httpx   │
 │  │  /users             │   │      │        pillow · python-dotenv      │
@@ -131,7 +130,9 @@ User fills form (type, description, photo) → clicks Submit
          POST /inference/classify { image_base64: "data:image/jpeg;base64,..." }
            │
            └─ if 200 OK → updateDoc(/incidents/{incidentId}, {
-                ml_label, ml_confidence, ml_severity, status: "classified"
+                ml_label, ml_confidence, ml_severity,
+                ml_inference_mode, ml_model_version,
+                status: "classified"
               })
 ```
 
@@ -143,10 +144,13 @@ POST /inference/classify
           │
           ▼
   1. ONNXStudentClassifier.classify(image_source)
-     → No ONNX model file → simulator mode (deterministic mock, 0.72 confidence)
-     → Confidence < 0.85 → escalate to VLM Teacher
+     → Loads student_model_quantized.onnx (4.4 MB, MobileNetV3 Large INT8)
+     → TrashNet classes: cardboard · glass · metal · paper · plastic · trash
+     → If confidence >= 0.85 → return directly (inference_mode: "onnx")
+     → If confidence < 0.85  → escalate to VLM Teacher
+     → If model file missing → simulator mode (deterministic mock, 0.72 confidence)
           │
-          ▼
+          ▼ (only if confidence < 0.85)
   2. VLMTeacherValidator.validate_image(image_source)
      → decode base64 data URL → PIL Image bytes
      → POST https://generativelanguage.googleapis.com/v1beta/models/
@@ -163,6 +167,9 @@ POST /inference/classify
      { label, confidence, severity, processing_time_ms,
        model_version, inference_mode, escalated_to_vlm,
        vlm_reason, flywheel_logged }
+
+  4. _record_prediction(mode, label, latency_ms)
+     → increments in-memory stats counters (visible at GET /mlops/stats)
 ```
 
 **Simulator mode** (no GEMINI_API_KEY): Returns deterministic mock outputs based on image hash. Useful for development/demo without API key.
@@ -242,38 +249,56 @@ HuggingFace Space FastAPI
 
 ### v2 (Complete — Trained on Kaggle, Deployed to HuggingFace)
 
-Public showcase notebook: [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1LtzpoTVgkB1xNLnnsxH1FAWd4fu2ZmSm?usp=sharing) · [View on GitHub](notebooks/EcoView_KD_Showcase.ipynb) · Local export script: [export_onnx_local.py](notebooks/export_onnx_local.py)
+Public showcase notebook: [Run on Kaggle](https://www.kaggle.com/code/atharvkhare/eco-view) · [View on GitHub](https://github.com/1mystic/Eco-View/blob/main/notebooks/EcoView_KD_Showcase.ipynb) · Local export script: [export_onnx_local.py](notebooks/export_onnx_local.py)
 
 ```
 Kaggle GPU T4 (free):
   TrashNet dataset (2,527 images, 6 classes:
     cardboard · glass · metal · paper · plastic · trash)
     │
-    ├─ Teacher: ConvNeXt Base (timm, ImageNet-22k pretrained, ~89M params)
-    │   AdamW lr=3e-4 · 15 epochs · CosineAnnealingLR · early stopping
-    │   AMP training (GradScaler + autocast) — fits T4 at batch=16
-    │   Accuracy: ~95%
+    ├─ Teacher: ConvNeXt Base (timm, ImageNet-22k pretrained, 87.6M params)
+    │   AdamW lr=3e-4 · early stop at epoch 10 · CosineAnnealingLR
+    │   AMP training (GradScaler + autocast) — batch=16 on T4
+    │   Val accuracy: 94.49%
     │
-    └─ Student: MobileNetV3 Large (~4.2M params, 21× smaller)
+    └─ Student: MobileNetV3 Large (4.2M params, 21× smaller)
         Loss = 0.7×CrossEntropy + 0.3×KL_Divergence × T²  (T=4.0)
         AdamW lr=1e-3 · 10 epochs · AMP enabled
-        Accuracy: ~91%
+        Val accuracy: 92.72%  (gap: only 1.8 pp below teacher)
           │
           ▼
-    Export locally (export_onnx_local.py, CPU-only, 8 GB RAM compatible):
-          │
     torch.onnx.export (opset 17, dynamo=False — TorchScript, stable)
           │
-    onnxsim graph simplification
+    onnxsim graph simplification  (16.8 MB → 16.8 MB, same size)
           │
     INT8 dynamic quantization (onnxruntime.quantization)
           │
-    student_model_quantized.onnx  (4.4 MB  ·  ~55 ms CPU latency)
+    student_model_quantized.onnx  (4.4 MB  ·  68.9 ms CPU p50 on Kaggle)
     → notebooks/OUTPUT/student_model_quantized.onnx  [tracked in repo]
     → ecoview-ml-backend/student_model_quantized.onnx [live on HF Space]
 ```
 
 **Data Flywheel (automatic):** When Gemini validates a high-confidence classification (≥0.85), the image + label is saved to `data/flywheel/` in the Space. These accumulate as training data for the next distillation round.
+
+### Class Imbalance Analysis
+
+The 92.72% aggregate accuracy hides per-class variation. TrashNet has a **4.3× imbalance** between `paper` (594 samples) and `trash` (137 samples). Actual per-class results from the Kaggle training run:
+
+| Class | Val samples | Precision | Recall | F1 | Note |
+|-------|------------|-----------|--------|----|------|
+| cardboard | 81 | 0.974 | 0.938 | 0.956 | |
+| glass | 101 | 0.957 | 0.891 | 0.923 | |
+| metal | 82 | 0.889 | 0.976 | 0.930 | |
+| paper | 119 | 0.892 | 0.975 | 0.932 | |
+| plastic | 97 | 0.937 | 0.918 | 0.927 | |
+| **trash** | **28** | **0.952** | **0.714** | **0.816** | ← weakest |
+
+**Key finding:** `trash` recall is only 71.4% — the model misses 29% of actual trash images and mislabels them as other classes. Precision is high (0.952), so when the model says "trash" it's almost always right, but it fails to recognize ambiguous mixed-waste items. This is confirmed by the small val set (28 samples) and the class's "catch-all" nature.
+
+**Mitigation strategies (v3 retraining):**
+- `WeightedRandomSampler` — oversamples minority classes so each epoch sees balanced class frequency
+- `nn.CrossEntropyLoss(weight=...)` — class-weighted loss penalizes mistakes on rare classes more
+- Per-class precision/recall from each training run is saved to `per_class_metrics.json` in the Kaggle output
 
 ### v3 (Future :  Browser-Side)
 
@@ -337,6 +362,8 @@ OWLv2 zero-shot detection via Transformers.js + WebGPU:
 | Stats strip (count per status) | aggregated Firestore queries |
 | View ML classification per report | ml_label, ml_confidence badges |
 | View report photos inline | img src={photo_data} |
+| ML Performance tab | class distribution, accuracy estimate, weekly trend, live HF Space session stats |
+| Batch classify pending with AI | runBatchClassify → /inference/classify |
 
 ---
 
@@ -448,10 +475,12 @@ EcoView/
   status: string,            // "pending" → "classified" → "verified" → "resolved" | "rejected"
   reporter_uid: string,      // Firebase Auth UID
   reporter_name: string,     // display name at time of submission
-  ml_label: string|null,     // "garbage_dump" | "plastic_waste" | "industrial_smoke" |
-                             // "water_contamination" | "deforestation" | "oil_spill" | "none"
+  ml_label: string|null,     // TrashNet v2: "cardboard"|"glass"|"metal"|"paper"|"plastic"|"trash"
+                             // Gemini v1: "garbage_dump"|"plastic_waste"|"water_contamination"|...
   ml_confidence: number|null,// 0.0–1.0 float
   ml_severity: string|null,  // "low" | "medium" | "high" | "critical"
+  ml_inference_mode: string|null, // "onnx" | "vlm_teacher" | "vlm_text_only" | "simulator"
+  ml_model_version: string|null,  // e.g. "student_onnx_int8_v2", "gemini-3.1-flash-lite-vlm"
   verification_count: number,// 0–3+ integer
   verifiers: string[],       // array of Firebase UIDs who verified
   created_at: Timestamp,
@@ -545,9 +574,27 @@ Classify an image as a pollution type.
 ```
 
 **Modes:**
-- `onnx` :  ONNX model present, fast local inference
-- `simulator` :  No model file, deterministic mock output (for dev/demo)
-- `vlm_teacher` :  Gemini 3.1 Flash-Lite classified (when ONNX confidence < 0.85 or simulator)
+- `onnx` — ONNX model present, fast local inference (~55 ms CPU)
+- `simulator` — No model file, deterministic mock output (for dev/demo)
+- `vlm_teacher` — Gemini 3.1 Flash-Lite classified (when ONNX confidence < 0.85)
+- `vlm_text_only` — Text description only, no image, classified by Gemini
+
+### `GET /mlops/stats`
+
+Live inference session statistics (resets on Space restart). Consumed by the Admin Dashboard "ML Performance" tab.
+
+```json
+{
+  "total_predictions": 3,
+  "onnx_count": 2,
+  "vlm_count": 1,
+  "simulator_count": 0,
+  "class_counts": { "plastic": 2, "glass": 1 },
+  "avg_latency_ms": 48.3,
+  "escalation_rate": 0.333,
+  "uptime_seconds": 3600
+}
+```
 
 ### `POST /spatial/analyze-clusters` · `POST /spatial/risk-heatmap` · `POST /spatial/proximity-alerts`
 
@@ -639,17 +686,14 @@ node node_modules/vite/bin/vite.js build
 
 The full training pipeline (ConvNeXt Base teacher → MobileNetV3 distillation → ONNX INT8) is publicly available:
 
-- **Colab:** [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1LtzpoTVgkB1xNLnnsxH1FAWd4fu2ZmSm?usp=sharing)
-- **Kaggle** (T4 GPU, ~60–90 min): follow the steps below
+- **Kaggle** (T4 GPU, ~60–90 min): [Run on Kaggle](https://www.kaggle.com/code/atharvkhare/ecoview) — dataset already attached
 - **Local** (CPU only): `python notebooks/export_onnx_local.py` (re-exports from checkpoint)
 
 **Steps to run:**
 
-1. **Get the dataset** — Go to [TrashNet on Kaggle](https://www.kaggle.com/datasets/fedesoriano/trashnet), click **+ Add to Notebook** (or note the dataset slug `fedesoriano/trashnet`).
+1. **Open the notebook** — Go to [https://www.kaggle.com/code/atharvkhare/ecoview](https://www.kaggle.com/code/atharvkhare/ecoview) and click **Copy & Edit**.
 
-2. **Import the notebook** — On Kaggle: `+ Create` → `New Notebook` → `File` → `Import Notebook` → upload `notebooks/EcoView_KD_Showcase.ipynb`.
-
-3. **Attach the dataset** — In the right sidebar under **Add data**, search `fedesoriano/trashnet` and add it. The notebook reads from `/kaggle/input/trashnet/dataset-resized/`.
+2. **Attach the dataset** — In the right sidebar under **Add data**, search `feyzazkefe trashnet` and add it. The notebook auto-detects the path at `/kaggle/input/datasets/feyzazkefe/trashnet/`.
 
 4. **Enable GPU** — In the right sidebar: `Session options` → `Accelerator` → **GPU T4 × 1**.
 
